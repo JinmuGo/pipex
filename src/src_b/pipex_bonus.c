@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:46:42 by jgo               #+#    #+#             */
-/*   Updated: 2022/12/11 21:04:29 by jgo              ###   ########.fr       */
+/*   Updated: 2022/12/11 21:27:25 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	hd_parent_process(t_argument *arg, int argc, char **argv)
 		perror("unlink error:");
 	free((void *)tmp_name);
 	free((void *)end_flag);
+	free((void *)pipe_heredoc_str);
 	px_child_process(0, arg, arg->file[0]);
 }
 
