@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   input_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.kr>               +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:54:14 by jgo               #+#    #+#             */
-/*   Updated: 2022/12/03 17:04:38 by jgo              ###   ########.fr       */
+/*   Updated: 2022/12/13 14:43:41 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,17 @@ static t_info	**find_abs_path(t_argument *arg)
 	t_info	**info;
 
 	info = malloc(sizeof(t_info *) * (arg->cmd_cnt + 1));
+	if (!info)
+		return (NULL);
 	info[arg->cmd_cnt] = NULL;
 	i = -1;
 	while (++i < arg->cmd_cnt)
 	{
 		info[i] = malloc(sizeof(t_info));
+		if (!info[i])
+			return (NULL);
 		info[i]->whole_cmd = ft_split(arg->cmd_str[i], ' ');
-		info[i]->abs_path = info[i]->whole_cmd[0];
+		info[i]->abs_path = check_file(info[i]->whole_cmd[0]);
 		info[i]->executable = is_exec(info[i]->abs_path, info[i]->whole_cmd);
 	}
 	return (info);
@@ -93,11 +97,15 @@ t_info	**px_parse(t_argument *arg)
 	if (!path_arr)
 		return (find_abs_path(arg));
 	info = malloc(sizeof(t_info *) * (arg->cmd_cnt + 1));
+	if (!info)
+		return (NULL);
 	info[arg->cmd_cnt] = NULL;
 	i = -1;
 	while (++i < arg->cmd_cnt)
 	{
 		info[i] = malloc(sizeof(t_info));
+		if (!info[i])
+			return (NULL);
 		info[i]->whole_cmd = ft_split(arg->cmd_str[i], ' ');
 		info[i]->abs_path = make_abs_path(info[i]->whole_cmd[0], path_arr);
 		info[i]->executable = is_exec(info[i]->abs_path, info[i]->whole_cmd);

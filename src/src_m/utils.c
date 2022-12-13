@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.kr>               +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:54:20 by jgo               #+#    #+#             */
-/*   Updated: 2022/11/30 20:25:45 by jgo              ###   ########.fr       */
+/*   Updated: 2022/12/13 14:37:41 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,11 @@ void	direction_handling(int L, t_argument *arg, int fd[2], int input)
 		dup2(fd[1], STDOUT_FILENO);
 	else
 		dup2(arg->file[1], STDOUT_FILENO);
+}
+
+char	*check_file(char *str)
+{
+	if (!ft_strchr(str, '/'))
+		return (NULL);
+	return (str);
 }

@@ -6,11 +6,18 @@
 /*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:54:20 by jgo               #+#    #+#             */
-/*   Updated: 2022/12/11 21:03:57 by jgo              ###   ########.fr       */
+/*   Updated: 2022/12/13 14:54:49 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
+
+char	*check_file(char *str)
+{
+	if (!ft_strchr(str, '/'))
+		return (NULL);
+	return (str);
+}
 
 void	direction_handling(int L, t_argument *arg, int fd[2], int input)
 {
@@ -69,4 +76,22 @@ char	*make_pipe_str(int pipe_num)
 	pipe_str = ft_strdup(tmp_str);
 	free(tmp_str);
 	return (pipe_str);
+}
+
+void	here_doc_prompt(const char *end_flag, const char *heredoc, int file)
+{
+	char		*line;
+
+	ft_printf("%s ", heredoc);
+	line = get_next_line(STDIN_FILENO);
+	while (ft_strncmp(line, end_flag, ft_strlen(line)))
+	{
+		ft_printf("%s ", heredoc);
+		write(file, line, ft_strlen(line));
+		free(line);
+		line = get_next_line(STDIN_FILENO);
+	}
+	if (line)
+		free(line);
+	close(file);
 }

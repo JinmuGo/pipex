@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.kr>               +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:17:14 by jgo               #+#    #+#             */
-/*   Updated: 2022/12/03 14:42:13 by jgo              ###   ########.fr       */
+/*   Updated: 2022/12/13 14:34:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void	error_handling(int L, t_argument *arg, int file[2]);
 
 	// utils.c
 void	direction_handling(int L, t_argument *arg, int fd[2], int input);
+char	*check_file(char *str);
 
 #endif

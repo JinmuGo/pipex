@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:17:14 by jgo               #+#    #+#             */
-/*   Updated: 2022/12/11 20:51:05 by jgo              ###   ########.fr       */
+/*   Updated: 2022/12/13 14:54:41 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,7 @@ void	error_handling(int L, t_argument *arg, int file[2]);
 void	direction_handling(int L, t_argument *arg, int fd[2], int input);
 char	*find_tmp_name(void);
 char	*make_pipe_str(int pipe_num);
+char	*check_file(char *str);
+void	here_doc_prompt(const char *end_flag, const char *heredoc, int file);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:46:42 by jgo               #+#    #+#             */
-/*   Updated: 2022/12/11 21:27:25 by jgo              ###   ########.fr       */
+/*   Updated: 2022/12/13 14:51:29 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,10 @@ void	hd_parent_process(t_argument *arg, int argc, char **argv)
 	const char	*end_flag = ft_strjoin(argv[2], "\n");
 	const char	*tmp_name = find_tmp_name();
 	const char	*pipe_heredoc_str = make_pipe_str(arg->cmd_cnt -1);
-	char		*line;
 
 	arg->file[0] = open(tmp_name, O_WRONLY | O_CREAT, 0644);
 	arg->file[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
-	ft_printf("%s ", pipe_heredoc_str);
-	line = get_next_line(STDIN_FILENO);
-	while (ft_strncmp(line, end_flag, ft_strlen(line)))
-	{
-		ft_printf("%s ", pipe_heredoc_str);
-		write(arg->file[0], line, ft_strlen(line));
-		free(line);
-		line = get_next_line(STDIN_FILENO);
-	}
-	if (line)
-		free(line);
-	close(arg->file[0]);
+	here_doc_prompt(end_flag, pipe_heredoc_str, arg->file[0]);
 	arg->file[0] = open(tmp_name, O_RDONLY, 0644);
 	if (unlink(tmp_name) == -1)
 		perror("unlink error:");
@@ -87,7 +75,7 @@ int	main(int argc, char **argv, char **envp)
 	info.cmd_cnt = argc - 3;
 	info.envp = envp;
 	info.cmd_str = argv + 2;
-	if (ft_strncmp(argv[1], "here_doc", ft_strlen("here_doc")))
+	if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])))
 	{
 		info.cmd_info = px_parse(&info);
 		px_parent_process(&info, argc, argv);
