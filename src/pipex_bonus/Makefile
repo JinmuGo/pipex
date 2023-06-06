@@ -5,20 +5,29 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/23 13:42:33 by jgo               #+#    #+#              #
-#    Updated: 2023/06/06 16:16:43 by jgo              ###   ########.fr        #
+#    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
+#    Updated: 2023/06/06 16:18:01 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ifndef TOPDIR
-		TOPDIR = $(abspath ..)
+		TOPDIR = $(abspath ../../)
 endif
+
 include $(TOPDIR)/make_config/src/Rules.mk
 include $(TOPDIR)/make_config/com/ColorRules.mk
 
-LIBS = libft ft_printf
+NAME = $(BONUS_NAME)
 
-all bonus clean fclean re:
-		$(Q)$(foreach lib, $(LIBS), $(MAKE) TOPDIR=$(TOPDIR) -C $(lib) $@;)
+DIRS = utils_bonus
+LIBS = $(addsuffix .a, $(addprefix lib/, $(DIRS)))
 
-.PHONY: all clean fclean re bonus
+HEADS =	pipex_bonus.h
+
+SRCS = main_bonus.c
+
+OBJS = $(SRCS:.c=.o)
+DEPS = $(SRCS:.c=.d)
+-include $(DEPS)
+
+include $(TOPDIR)/make_config/src/Recipes.mk
