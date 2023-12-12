@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 	t_argument	info;
 
 	if (argc < 5)
-		exit(1);
+		exit(EXIT_FAILURE);
 	info.cmd_cnt = argc - 3;
 	info.envp = envp;
 	info.cmd_str = argv + 2;

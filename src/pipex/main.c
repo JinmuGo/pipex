@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc < 5)
 	{
 		ft_printf("you need at least five argument\n");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	info.cmd_cnt = argc - 3;
 	info.envp = envp;

@@ -18,7 +18,7 @@ void	file_error(const char *str)
 		ft_printf("Permission denied: %s\n", str);
 	else
 		ft_printf("No such file or directory: %s\n", str);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 void	error_handling(int L, t_argument *arg, int file[2])
@@ -30,12 +30,12 @@ void	error_handling(int L, t_argument *arg, int file[2])
 	if ((L != 0 && L != arg->cmd_cnt -1) && is_it_file)
 		file_error(first_cmd);
 	if ((L == 0 && file[0] == -1) || (L == arg->cmd_cnt -1 && file[1] == -1))
-	{	
+	{
 		if (file[0] == -1 && L == 0)
 			file_error(*(arg->cmd_str - 1));
 		if (file[1] == -1 && L == arg->cmd_cnt -1)
 			file_error(*(arg->cmd_str + arg->cmd_cnt));
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	if (!cmd_info->executable && !is_it_file)
 	{
